@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/exp4tcpip.iml" filepath="$PROJECT_DIR$/.idea/exp4tcpip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/UdpTransmission.iml" filepath="$PROJECT_DIR$/.idea/UdpTransmission.iml" />
     </modules>
   </component>
 </project>
