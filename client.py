@@ -227,7 +227,7 @@ class ClientWindow(QMainWindow, Ui_udpClient):
 
     @pyqtSlot(int, str)
     def print_log(self, level, message):
-        now_time = "<font color=\"#000000\" size=\"3\">" + html.escape("[" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "] ")
+        now_time = "<font color=\"#ffffff\" size=\"3\">" + html.escape("[" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "] ")
         if level == 0:
             self.log.append(now_time + "<font color=\"#1E90FF\" size=\"3\">" + html.escape(message) + "</font>")
         elif level == 1:
@@ -241,5 +241,7 @@ class ClientWindow(QMainWindow, Ui_udpClient):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     clientWindow = ClientWindow()
+    with open('qmc2-black.qss', 'r') as q:
+        clientWindow.setStyleSheet(q.read())
     clientWindow.show()
     sys.exit(app.exec_())

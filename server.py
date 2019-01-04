@@ -39,11 +39,13 @@ class ReceiveThread(QThread):
                     size = int(data[1])
                     file_name = data[2]
                     self.update_log_signal.emit(0, "开始数据接收，数据类型【文件】，总大小 " + str(size) + " Bytes")
+                    self.update_log_signal.emit(1, "包编号 " + str(send_id) + " 收到,已发送确认包")
                     self.update_message_signal.emit("<font color=\"#1E90FF\" size=\"2\">" + html.escape("-------<<< " + str(addr[0]) + ":" + str(addr[1])) + "</font>")
                     self.receive_file(size, file_name, skt)
                 else:
                     size = int(data[1])
                     self.update_log_signal.emit(0, "开始数据接收，数据类型【消息】，总大小 " + str(size) + " Bytes")
+                    self.update_log_signal.emit(1, "包编号 " + str(send_id) + " 收到,已发送确认包")
                     self.update_message_signal.emit("<font color=\"#1E90FF\" size=\"2\">" + html.escape("-------<<< " + str(addr[0]) + ":" + str(addr[1])) + "</font>")
                     self.receive_message(size, skt)
         except Exception as e:
@@ -156,7 +158,7 @@ class ClientWindow(QMainWindow, Ui_udpServer):
 
     @pyqtSlot(int, str)
     def print_log(self, level, message):
-        now_time = "<font color=\"#000000\" size=\"3\">" + html.escape("[" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "] ")
+        now_time = "<font color=\"#ffffff\" size=\"3\">" + html.escape("[" + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + "] ")
         if level == 0:
             self.log.append(now_time + "<font color=\"#1E90FF\" size=\"3\">" + html.escape(message) + "</font>")
         elif level == 1:
@@ -170,5 +172,8 @@ class ClientWindow(QMainWindow, Ui_udpServer):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     clientWindow = ClientWindow()
+    with open('qmc2-black.qss', 'r') as q:
+        clientWindow.setStyleSheet(q.read())
+    clientWindow.show()
     clientWindow.show()
     sys.exit(app.exec_())
